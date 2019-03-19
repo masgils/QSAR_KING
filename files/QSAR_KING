@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#check if the file ready
+check_b4_run
+
+num_ready=$(ls notReady 2> /dev/null | wc -l)
+if (( $num_ready != 0 ))
+    then
+    rm notReady
+    exit 1
+    fi
+
+#Run the QSAR KING program
+gesp2mol
+
+cp ~/QSAR_KING/Citadel/mol2_killer.py .
+python mol2_killer.py
+rm *.py
+
+mol2gmx
+
+cd p2out/
+cp ~/QSAR_KING/Citadel/b4_run_dyn.py .
+python b4_run_dyn.py
+
+run_dyn_m
+
+cp ~/QSAR_KING/Citadel/run_dyn_check.py .
+python run_dyn_check.py
+rm *.py
+
+mk_ndx_m
+
+cd ndx/
+mk_grid_inps_m
+
+cd grid_inps/
+cp ~/QSAR_KING/Citadel/LQTA.py .
+cp ~/QSAR_KING/Citadel/Detective.py .
+python LQTA.py
+python Detective.py
+rm *.py AtomProva.atp
+
+mkdir ../../../Result
+mkdir ../../../Result/align
+refName=$(cat ../ref.txt)
+cp ../${refName}\_ref/*_alg.gro ../../../Result/align/
+cp ~/QSAR_KING/files/align.tcl ../../../Result/align/
+mv Exp_Cal.html ../../../Result/
+

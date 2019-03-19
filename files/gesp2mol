@@ -1,0 +1,15 @@
+#!/bin/bash
+c_out=$(ls *.gesp 2> /dev/null | wc -l)
+if [ "$c_out" != "0" ]
+   then
+   mkdir p2out
+for r in *gesp
+   do
+   name=${r%.gesp}
+   antechamber -i ${name}.gesp -fi gesp -o ${name}.mol2 -fo mol2 -pf y -c resp
+   rm esout punch qout QOUT
+   done
+echo "Job done(gesp2mol).
+YOU ARE THE LOYAL SERVANT OF THE KING."
+fi
+

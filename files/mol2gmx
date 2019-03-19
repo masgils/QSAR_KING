@@ -1,0 +1,38 @@
+#!/bin/bash
+c_out=$(ls *.mol2 2> /dev/null | wc -l)
+if [ "$c_out" != "0" ]
+   then
+for r in *.mol2
+   do
+   name=${r%.mol2}
+   parmchk2 -i ${name}.mol2 -f mol2 -o ${name}.frcmod
+   mv ${name}.mol2 p2out/.
+   mv ${name}.frcmod p2out/.
+   cd p2out
+   touch ${name}.in
+   echo 'source leaprc.ff14SB' >> ${name}.in
+   echo 'source leaprc.gaff' >> ${name}.in 
+   echo "loadamberparams ${name}.frcmod" >> ${name}.in 
+   echo "lig=loadmol2 ${name}.mol2" >> ${name}.in 
+   echo 'check lig' >> ${name}.in 
+   echo "saveamberparm lig ${name}.prmtop ${name}.inpcrd" >> ${name}.in 
+   echo 'quit' >> ${name}.in 
+   tleap -f ${name}.in
+   rm *.log
+   acpype -p ${name}.prmtop -x ${name}.inpcrd -d
+   mv MOL_GMX.gro ${name}_GMX.gro
+   mv MOL_GMX.top ${name}_GMX.top
+   rm em.mdp md.mdp *.frcmod *.mol2 *.prmtop *.inpcrd ${name}.in
+   cd ..
+   done
+c_out1=$(ls *.log 2> /dev/null | wc -l)
+for r in *log
+   do
+   name=${r%.log}
+   cp ${name}.log p2out/.
+   done
+cd p2out
+echo "Job done(mol2gmx).
+YOU ARE THE LOYAL SERVANT OF THE KING."
+fi
+
