@@ -27,13 +27,13 @@ OpenBabel
 
 VMD
 ## Installing QSAR_KING
-Put the QSAR KING package in any directory you want to install
+Put the QSAR KING package in any directory. Open the terminal at the directory, type:
 
-Open the terminal at the directory, type:
+>$ mv QSAR_KING ~
 
->$ sudo echo "(your path)/files" >> $HOME/.bashrc
+>$ sudo echo "~/QSAR_KING/files" >> $HOME/.bashrc
 
->$ sudo chmod -R a+x files/
+>$ sudo chmod -R a+x ~/QSAR_KING/files/
 
 >$ python -m pip install --upgrade pip
 
@@ -52,7 +52,7 @@ It contains all names of compounds,The text file will be:
 #### 2. index.txt
 Each line of this file must contain the atom indexes from Gaussian that will be aligned, separeted by "tab". For example, the Gaussian atoms indexes of m01 and m02 that will be aligned are 1,3,5,7. For m03 these atoms have different Gaussian indexes, that are 2,4,5,9. The "index.txt" file will be:
 
->1  3  5	7
+>1 3  5	7
    
 >1	3	5	7
    
