@@ -23,8 +23,6 @@ AmberTools >= 2017
 
 Gromacs >= 2018
 
-dos2unix
-
 OpenBabel
 
 VMD
