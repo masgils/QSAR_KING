@@ -73,7 +73,7 @@ It contains the name of the reference compound used in the alignment step. For e
 >m02
 
 #### 5. test.txt (Optional)
-Manually specify which compounds are used as test sets. If there is no such file, the program will randomly pick one-fifth of the compounds as a test set. For example, m02 is in the test set and m01,m03 are in the training set, The text file will be:
+Manually specify which compounds are used as test sets. If there is no such file, the program will randomly pick one-fifth of the compounds as a test set. For example, m02 is in the test set and m01,m03 are in the training set, the text file will be:
 
 >m02
 
